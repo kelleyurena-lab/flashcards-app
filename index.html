@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcards Study App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Flashcards Study App</h1>
+    <button id="new-deck-btn" class="btn primary" aria-label="Create a new deck">+ New Deck</button>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="Study Decks">
+      <h2>Decks</h2>
+      <ul id="deck-list" class="deck-list"></ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="deck-header">
+        <div class="deck-title-group">
+          <h2 id="active-deck-title">Select or Create a Deck</h2>
+          <div id="deck-actions" class="deck-actions hidden">
+            <button id="edit-deck-btn" class="btn small" aria-label="Rename current deck">Rename Deck</button>
+            <button id="delete-deck-btn" class="btn small danger" aria-label="Delete current deck">Delete Deck</button>
+          </div>
+        </div>
+
+        <div id="toolbar" class="toolbar hidden">
+          <label for="search-input" class="sr-only">Search cards in deck</label>
+          <input type="search" id="search-input" placeholder="Search cards..." aria-label="Search cards in deck" />
+          <span id="match-count" class="match-count" aria-live="polite"></span>
+          <button id="shuffle-btn" class="btn" aria-label="Shuffle cards">Shuffle</button>
+          <button id="new-card-btn" class="btn primary" aria-label="Add new card to deck">+ New Card</button>
+        </div>
+      </div>
+
+      <section id="study-area" class="study-area" aria-live="polite">
+        <p id="empty-state" class="empty-state">No decks yet. Click "+ New Deck" to get started!</p>
+
+        <div id="card-container" class="card-container hidden">
+          <div id="flashcard" class="card" tabindex="0" role="button" aria-label="Flashcard. Press Space to flip.">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <span class="card-badge">Front</span>
+                <p id="card-front-text"></p>
+              </div>
+              <div class="card-face card-back">
+                <span class="card-badge">Back</span>
+                <p id="card-back-text"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="study-controls">
+            <button id="prev-btn" class="btn" aria-label="Previous card">← Prev</button>
+            <button id="flip-btn" class="btn primary" aria-label="Flip card">Flip (Space)</button>
+            <button id="next-btn" class="btn" aria-label="Next card">Next →</button>
+          </div>
+
+          <div class="card-meta">
+            <span id="card-progress">Card 0 of 0</span>
+            <div class="card-crud">
+              <button id="edit-card-btn" class="btn small" aria-label="Edit current card">Edit Card</button>
+              <button id="delete-card-btn" class="btn small danger" aria-label="Delete current card">Delete Card</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <p>Shortcuts: <strong>Space</strong> to Flip | <strong>← / →</strong> Arrows for Prev / Next | <strong>Esc</strong> to Close Modal</p>
+  </footer>
+
+  <!-- Accessible Modal -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <h3 id="modal-title">Modal Title</h3>
+      <form id="modal-form">
+        <div id="deck-fields" class="form-group">
+          <label for="deck-name-input">Deck Name</label>
+          <input type="text" id="deck-name-input" placeholder="e.g., Python Fundamentals" />
+        </div>
+        <div id="card-fields" class="form-group hidden">
+          <label for="card-front-input">Front (Question / Term)</label>
+          <textarea id="card-front-input" rows="3" placeholder="e.g., What is a Transformer?"></textarea>
+          <label for="card-back-input">Back (Answer / Definition)</label>
+          <textarea id="card-back-input" rows="3" placeholder="e.g., A neural network architecture using self-attention."></textarea>
+        </div>
+        <p id="modal-error" class="error-msg hidden" role="alert"></p>
+        <div class="modal-actions">
+          <button type="button" id="modal-cancel-btn" class="btn">Cancel</button>
+          <button type="submit" id="modal-save-btn" class="btn primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
